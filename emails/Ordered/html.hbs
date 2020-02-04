@@ -1,0 +1,81 @@
+<html>
+
+<head>
+</head>
+
+<body style="font-family: 'Helvetica Neue','Helvetica','Arial',sans-serif; margin: 0; background: #eee; padding: 10px 0 50px;">
+  <div style="max-width: 600px; margin: 10px auto; background: white;">
+    <div style="background: {{ config.colors.secondary.main }}; height: 50px;"></div>
+    <div style="padding: 30px">
+      <h1 style="font-weight: 200; margin: 0 0 20px; font-size: 28px;">
+        Order Confirmation
+      </h1>
+      <p style="margin-bottom: 30px; font-size: 16px;">Thanks for your order with {{ config.store_name}}!</p>
+      <table style="margin-bottom: 20px; font-size: 12px; color: #555; width:100%;">
+        <tbody>
+          <tr>
+            <td style="width: 50%;">
+              <div style="color: black; font-weight: bold; margin-bottom: 5px;">Shipping Address:</div>
+              <div>{{ order.shipping.name }}</div>
+              <div>{{ order.shipping.address.line1 }}</div>
+              <div>{{ order.shipping.address.line2 }}</div>
+              <div>{{ order.shipping.address.city }}, {{ order.shipping.address.state }}</div>
+              <div>{{ order.shipping.address.postal_code }}</div>
+            </td>
+            <td style="vertical-align: top;">
+              <div style="color: black; font-weight: bold; margin-bottom: 5px;">Order ID:</div>
+              <div>{{ order_id }}</div>
+              <div style="color: black; font-weight: bold; margin: 9px 0 5px;">Order Date:</div>
+              <div>{{ order_date }}</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table style="width: 100%; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding-bottom: 10px; font-size: 12px;">
+        <thead>
+          <tr style="font-size: 12px;">
+            <th style="text-align: left; text-transform: uppercase; padding: 20px 0 10px;">Item</th>
+            <th style="text-align: right; text-transform: uppercase; padding: 20px 0 10px;">Quantity</th>
+            <th style="text-align: right; text-transform: uppercase; padding: 20px 0 10px;">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each items }}
+          <tr style="font-size: 14px;">
+            <td style="padding: 0 0 10px;">{{ this.description }}</td>
+            <td style="padding: 0 0 10px; color: #555; text-align: right;">{{ this.quantity }}</td>
+            <td style="padding: 0 0 10px; color: #555; text-align: right;">{{ this.displayAmount }}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <table style="width:100%; margin-top: 20px;">
+        <tbody>
+          <tr>
+            <td style="width: 50%;"></td>
+            <td>
+              <table style="font-size: 14px; width:100%;">
+                <tbody>
+                  <tr style="color: #555;">
+                    <td style="padding-bottom: 5px;">Subtotal</td>
+                    <td style="text-align: right;">{{ order_subtotal }}</td>
+                  </tr>
+                  <tr style="color: #555;">
+                    <td style="padding-bottom: 5px;">Shipping</td>
+                    <td style="text-align: right;">{{ shipping_cost }}</td>
+                  </tr>
+                  <tr style="font-weight: bold;">
+                    <td>Total</td>
+                    <td style="text-align: right;">{{ order_total }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>

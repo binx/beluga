@@ -102,6 +102,7 @@ const CartTable = ({ items, theme, updateCount, removeItem }) => (
                 updateCount(i, e.target.value)
               }}
               type="number"
+              inputProps={{ min: "1", step: "1" }}
               margin="none"
               style={{ width: "40px" }}
             />

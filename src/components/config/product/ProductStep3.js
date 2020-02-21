@@ -96,6 +96,7 @@ function ProductStep3(props) {
               value={s.inventory.quantity || 0}
               onChange={e => updateInventory(i, "quantity", e.target.value)}
               type="number"
+              inputProps={{ min: "1", step: "1" }}
               label="Quantity"
               style={{ width: "80px" }}
             />

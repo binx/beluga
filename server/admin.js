@@ -23,7 +23,7 @@ app.get('/orders/:status', function(req, res) {
   if (req.session.isAdmin) {
     stripe.orders.list({ status: req.params.status },
       function(err, orders) {
-        res.json(orders.data);
+        if (orders) res.json(orders.data);
       });
   } else {
     res.redirect("/login")

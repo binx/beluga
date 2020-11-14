@@ -8,7 +8,7 @@ app.post('/api/login', function(req, res) {
   } else {
     res.status(401).json({
       error: {
-        message: 'Wrong username or password!'
+        message: 'Wrong password!'
       }
     });
   }

@@ -14,7 +14,7 @@
     "express-session": "^1.15.6",
     "fs": "^0.0.1-security",
     "fs-extra": "^8.1.0",
-    "googleapis": "27",
+    "googleapis": "39",
     "handlebars": "^4.5.3",
     "helmet": "^3.12.1",
     "image-size": "^0.8.3",

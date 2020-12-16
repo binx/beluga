@@ -1,6 +1,7 @@
 const app = require('./index.js');
 const stripe = require("stripe")(process.env.STRIPE_KEY);
 const rateLimit = require('express-rate-limit');
+const bcrypt = require('bcrypt');
 
 // Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
 // // see https://expressjs.com/en/guide/behind-proxies.html
@@ -14,16 +15,18 @@ const apiLimiter = rateLimit({
 app.use('/api/login', apiLimiter);
 
 app.post('/api/login', function(req, res) {
-  if (req.body.password === process.env.ADMIN_PW) {
-    req.session.isAdmin = true;
-    res.json({ isAdmin: true })
-  } else {
-    res.status(401).json({
-      error: {
-        message: 'Wrong password!'
-      }
-    });
-  }
+  bcrypt.compare(req.body.passowrd, process.env.ADMIN_PW, (err, result) => {
+	if ( result === true ) {
+		req.session.isAdmin = true;
+		res.json({ isAdmin: true })
+	} else {
+		res.status(401).json({
+			error: {
+				message: 'Wrong password!'
+			}
+		})
+	}
+  });
 });
 
 app.get('/api/logout', function(req, res) {

@@ -2,10 +2,35 @@ const app = require('./index.js');
 const stripe = require("stripe")(process.env.STRIPE_KEY);
 const rateLimit = require('express-rate-limit');
 const bcrypt = require('bcrypt');
+const fs = require('fs');
+const { parse, stringify } = require('envfile');
+const pathToenvFile = 'config.env';
+const saltRounds = 13;
 
-// Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
-// // see https://expressjs.com/en/guide/behind-proxies.html
-// // app.set('trust proxy', 1);
+if ( !process.env.ADMIN_PW ){
+	throw 'ADMIN_PW must be provided in config.env';
+}
+
+if ( !process.env.HASHED || process.env.HASHED !== 'true' ){
+	bcrypt.hash(process.env.ADMIN_PW, saltRounds, function(err, hash) {
+		fs.readFile(pathToenvFile, {encoding:'utf8', flag:'r'}, function(err, data) {
+			if(err) {
+				console.log(err);
+			}
+			let result = parse(data);
+			result['ADMIN_PW'] = hash;
+			result['HASHED'] = 'true';
+			process.env['ADMIN_PW'] = hash;
+			process.env['HASHED'] = 'true';	
+
+			fs.writeFile(pathToenvFile, stringify(result), function (err) {
+				if (err) {
+					console.log(err);
+				}
+			});
+		});
+	});
+}
 
 const apiLimiter = rateLimit({
 	windowMs: process.env.LOGIN_LIMIT_TIME_PERIOD || 15 * 1000,

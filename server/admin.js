@@ -11,7 +11,7 @@ if ( !process.env.ADMIN_PW ){
 	throw 'ADMIN_PW must be provided in config.env';
 }
 
-if ( !process.env.HASHED || process.env.HASHED !== 'true' ){
+if ( !process.env.PASSWORD_IS_HASHED || process.env.PASSWORD_IS_HASHED !== 'true' ){
 	bcrypt.hash(process.env.ADMIN_PW, saltRounds, function(err, hash) {
 		fs.readFile(pathToenvFile, {encoding:'utf8', flag:'r'}, function(err, data) {
 			if(err) {
@@ -19,9 +19,9 @@ if ( !process.env.HASHED || process.env.HASHED !== 'true' ){
 			}
 			let result = parse(data);
 			result['ADMIN_PW'] = hash;
-			result['HASHED'] = 'true';
+			result['PASSWORD_IS_HASHED'] = 'true';
 			process.env['ADMIN_PW'] = hash;
-			process.env['HASHED'] = 'true';	
+			process.env['PASSWORD_IS_HASHED'] = 'true';	
 
 			fs.writeFile(pathToenvFile, stringify(result), function (err) {
 				if (err) {

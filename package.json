@@ -11,6 +11,7 @@
     "dotenv": "^6.0.0",
     "email-templates": "^6.0.0",
     "express": "^4.16.3",
+    "express-rate-limit": "^5.2.3",
     "express-session": "^1.15.6",
     "fs": "^0.0.1-security",
     "fs-extra": "^8.1.0",

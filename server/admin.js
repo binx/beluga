@@ -40,7 +40,7 @@ const apiLimiter = rateLimit({
 app.use('/api/login', apiLimiter);
 
 app.post('/api/login', function(req, res) {
-  bcrypt.compare(req.body.passowrd, process.env.ADMIN_PW, (err, result) => {
+  bcrypt.compare(req.body.password, process.env.ADMIN_PW, (err, result) => {
 	if ( result === true ) {
 		req.session.isAdmin = true;
 		res.json({ isAdmin: true })

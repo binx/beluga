@@ -36,7 +36,7 @@ const AdminTable = (props) => {
     <Status state={status}>{status.charAt(0)}</Status>
   );
 
-  const { view_status, orders, statuses, shipping } = props;
+  const { view_status, orders } = props;
 
   return (
     <div>
@@ -81,13 +81,17 @@ const AdminTable = (props) => {
                   <div>{order.id}</div>
                 </td>
                 <td style={{ fontSize: "12px" }}>
-                  <div>{order.shipping.name}</div>
-                  <div>{order.shipping.address.line1}</div>
-                  <div>{order.shipping.address.line2}</div>
-                  <div>{order.shipping.address.city} {order.shipping.address.state} {order.shipping.address.postal_code}</div>
+                  {order.shipping && (
+                    <div>
+                      <div>{order.shipping.name}</div>
+                      <div>{order.shipping.address.line1}</div>
+                      <div>{order.shipping.address.line2}</div>
+                      <div>{order.shipping.address.city} {order.shipping.address.state} {order.shipping.address.postal_code}</div>
+                    </div>
+                  )}
                 </td>
                 <td>
-                  <select value={statuses[i]} 
+                  <select value={order.display_status} 
                     onChange={(e) => props.updateStatus(i, e.target.value)}
                   >
                     <option>Ordered</option>
@@ -98,11 +102,11 @@ const AdminTable = (props) => {
                 </td>
                 <td>
                   <div>Tracking:</div>
-                  { order.shipping.tracking_number ?
+                  { order.shipping && order.shipping.tracking_number ?
                     <div>{order.shipping.tracking_number}</div>
                     :
-                    <input type="text" value={shipping[i]}
-                      onChange={(e) => props.updateShipping(i, e.target.value)}
+                    <input type="text" value={order.display_tracking}
+                      onChange={(e) => props.updateTracking(i, e.target.value)}
                     />
                   }
                 </td>

@@ -4,12 +4,14 @@ const multer = require('multer');
 const path = require('path');
 const sizeOf = require('image-size');
 
+// reading in our store config file
 app.get('/config', function(req, res) {
   const config = fs.readFile("./src/assets/store_config.json", 'utf8', (err, data) => {
     res.json(JSON.parse(data));
   })
 });
 
+// updating the store config file, this is used in the /config route
 app.post('/config', function(req, res) {
   const config = fs.writeFile("./src/assets/store_config.json", JSON.stringify(req.body), 'utf8', (err, data) => {
     if (err) {
@@ -38,6 +40,7 @@ app.post('/about-text', function(req, res) {
   })
 });
 
+// uploading image files for products & collections
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, callback) => {

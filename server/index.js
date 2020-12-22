@@ -1,4 +1,4 @@
-const result = require('dotenv').config({ path: 'config.env' });
+const dotenv = require('dotenv').config({ path: 'config.env' });
 const express = require('express');
 const session = require('express-session');
 const helmet = require('helmet');
@@ -9,6 +9,10 @@ const app = module.exports = express();
 
 app.use(helmet());
 app.use(cookieParser());
+
+// app will not work without setting up the config.env file
+// https://belugajs.com/docs/new-store
+if (dotenv.error) throw dotenv.error;
 
 var sess = {
   secret: process.env.SESSION_SECRET,
@@ -28,7 +32,6 @@ if (app.get('env') === 'production') {
 app.use(session(sess))
 app.use(bodyParser.json());
 
-if (result.error) throw result.error;
 require(__dirname + '/product.js');
 require(__dirname + '/orders.js');
 require(__dirname + '/admin.js');

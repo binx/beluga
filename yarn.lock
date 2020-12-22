@@ -4947,6 +4947,11 @@ dotenv-expand@5.1.0:
   resolved "https://registry.yarnpkg.com/dotenv-expand/-/dotenv-expand-5.1.0.tgz#3fbaf020bfd794884072ea26b1e9791d45a629f0"
   integrity sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==
 
+dotenv-stringify@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/dotenv-stringify/-/dotenv-stringify-2.0.4.tgz#bd75c436d5011f28b6e979230de57a0989d7fc62"
+  integrity sha512-x4fufMtBK9+QlmWf6TG97AonV97WMhGCRTYBuYpk2pwn4tVhNRHLH49fimGuXDgthFNx27G62NT45wRQ0g52QQ==
+
 dotenv@8.2.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
@@ -5105,11 +5110,6 @@ entities@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/entities/-/entities-2.0.0.tgz#68d6084cab1b079767540d80e56a39b423e4abf4"
   integrity sha512-D9f7V0JSRwIxlRI2mjMqufDrRDnx8p+eEOz7aUM9SuvF8gsBzra0/6tbjl1m8eQHrZlYj6PxqE00hZ1SAIKPLw==
-
-envfile@^6.14.0:
-  version "6.14.0"
-  resolved "https://registry.yarnpkg.com/envfile/-/envfile-6.14.0.tgz#8dab1ab915a4c6567087a6bb9e732b1f164c2b30"
-  integrity sha512-JxpcaOgJQB/x0XFmNiqFu0BLK22PlI3F0d95of5SOqcLvBlGC0ug7MHYDWnmZqmx9svIue8v0cVcqAygPTyXHQ==
 
 errno@^0.1.3, errno@~0.1.7:
   version "0.1.7"

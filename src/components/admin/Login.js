@@ -28,7 +28,7 @@ function Login(props) {
           if (props.history.location.search)
             props.history.push(`/${props.history.location.search.split("?")[1]}`)
           else
-            props.history.push("/admin");
+            props.history.push("/orders");
 
         } else if (json.error)
           setError(json.error.message)

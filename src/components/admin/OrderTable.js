@@ -31,7 +31,7 @@ const Status = styled.div `
   }}
 `;
 
-const AdminTable = (props) => {
+const OrderTable = (props) => {
   const getStatus = status => (
     <Status state={status}>{status.charAt(0)}</Status>
   );
@@ -125,4 +125,4 @@ const AdminTable = (props) => {
     </div>
   );
 };
-export default AdminTable;
+export default OrderTable;

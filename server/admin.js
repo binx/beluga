@@ -63,19 +63,8 @@ app.get('/api/logout', function(req, res) {
 })
 
 
-let alwaysLogInAdmin = false;
-/*
-  uncomment the next line if you want to assume development is always ok to view orders
-  in your config.env file, add the line:
-  NODE_ENV=development
-
-  VERY IMPORTANT: when deploying your site, do NOT keep that line in your config.env,
-  or else everyone will be able to access your stripe data!
-*/
-// if (process.env.NODE_ENV === "development") alwaysLogInAdmin = true;
-
 app.get('/orders/:status', function(req, res) {
-  if (req.session.isAdmin || alwaysLogInAdmin) {
+  if (req.session.isAdmin || app.get('env') === "development") {
     stripe.orders.list({ status: req.params.status },
       function(err, orders) {
         if (orders) res.json(orders.data);
@@ -87,6 +76,7 @@ app.get('/orders/:status', function(req, res) {
 
 app.get('/user', function(req, res) {
   let isAdmin = false;
-  if (req.session.isAdmin || alwaysLogInAdmin) isAdmin = true;
+  if (req.session.isAdmin || app.get('env') === "development")
+    isAdmin = true;
   res.json({ isAdmin });
 });

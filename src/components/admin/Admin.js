@@ -10,8 +10,6 @@ import { Paper, Button } from "@material-ui/core";
 function Admin(props) {
   const [viewStatus, setViewStatus] = useState("paid");
   const [orders, setOrders] = useState([]);
-  const [statuses, setStatuses] = useState([]);
-  const [shipping, setShipping] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -34,11 +32,13 @@ function Admin(props) {
         if (results.error) {
           logout();
         } else {
-          const newStatuses = results.map(o => o.metadata.status || "Ordered");
-          const newShipping = results.map(o => "");
-          setOrders(results);
-          setStatuses(newStatuses);
-          setShipping(newShipping);
+          const newOrders = results.map(r => {
+            r["display_status"] = r.metadata.status || "Ordered";
+            r["display_tracking"] = "";
+            return r;
+          })
+
+          setOrders(newOrders);
         }
       });
   }
@@ -53,30 +53,29 @@ function Admin(props) {
   }
 
   const updateStatus = (i, status) => {
-    let newStatuses = [...statuses];
-    newStatuses[i] = status;
-    setStatuses(newStatuses);
+    let newOrders = [...orders];
+    newOrders[i].display_status = status;
+    setOrders(newOrders)
   }
 
-  const updateShipping = (i, tracking) => {
-    let newShipping = [...shipping];
-    newShipping[i] = tracking;
-    setShipping(newShipping);
+  const updateTracking = (i, tracking) => {
+    let newOrders = [...orders];
+    newOrders[i].display_tracking = tracking;
+    setOrders(newOrders)
   }
 
   const updateOrder = index => {
     const order = orders[index],
-      status = statuses[index];
+      status = order.display_status;
 
     if (status === "Shipped") {
-      const tracking = shipping[index];
       fetch("/order/ship/", {
           method: 'POST',
           headers: new Headers({ 'content-type': 'application/json' }),
           body: JSON.stringify({
             id: order.id,
             status: status,
-            tracking: tracking
+            tracking: order.display_tracking
           })
         }).then((response) => response.json())
         .then((json) => {
@@ -110,10 +109,8 @@ function Admin(props) {
         <AdminTable 
           view_status={viewStatus}
           orders={orders}
-          statuses={statuses}
-          shipping={shipping}
           updateOrder={updateOrder}
-          updateShipping={updateShipping}
+          updateTracking={updateTracking}
           updateStatus={updateStatus}
           switchView={setViewStatus}
         />

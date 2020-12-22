@@ -43,6 +43,9 @@ function Login(props) {
           value={password}
           type="password"
           onChange={e => setPassword(e.target.value)}
+          onKeyDown={e => {
+            if (e.keyCode === 13) logUserIn()
+          }}
         />
         <div style={{ margin: "20px 0" }}>
           <Button

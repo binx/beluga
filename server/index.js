@@ -5,7 +5,6 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const path = require('path');
-const stripe = require("stripe")(process.env.STRIPE_KEY);
 const app = module.exports = express();
 
 app.use(helmet());

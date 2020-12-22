@@ -63,9 +63,9 @@ app.get('/api/logout', function(req, res) {
 })
 
 
-app.get('/orders/:status', function(req, res) {
+app.post('/list-orders', function(req, res) {
   if (req.session.isAdmin || app.get('env') === "development") {
-    stripe.orders.list({ status: req.params.status },
+    stripe.orders.list(req.body,
       function(err, orders) {
         if (orders) res.json(orders.data);
       });

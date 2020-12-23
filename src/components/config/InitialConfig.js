@@ -46,8 +46,10 @@ function InitialConfig(props) {
       }).then((response) => response.json())
       .then(result => {
         if (result.success) {
-          props.history.push("/login");
-          window.location.reload();
+          props.history.push("/config");
+          setTimeout(() => {
+            window.location.reload();
+          }, 100);
         }
       });
   }

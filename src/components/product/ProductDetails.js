@@ -128,7 +128,7 @@ const ProductDetails = props => {
             value={props.quantity}
             onChange={e => props.setQuantity(e.target.value)}
             type="number"
-            inputProps={{ min: "1", step: "1" }}
+            inputProps={{ min: "1", step: "1", max: inventory ? inventory.quantity : null }}
             margin="normal"
             style={{ width: "40px", margin: "0 30px 0" }}
           />

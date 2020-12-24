@@ -69,7 +69,7 @@ const ProductDetails = props => {
     if (inventory.quantity === 0) {
       inventoryStatus = <div style={{ marginBottom: "10px", fontWeight: "bold" }}>SOLD OUT</div>;
       noAvailableProducts = true;
-    } else if (inventory.quantity < 10) {
+    } else if (inventory.quantity < 3) {
       inventoryStatus = <div style={{ marginBottom: "10px" }}>{`Hurry! Only ${inventory.quantity} Available`}</div>;
     }
   }

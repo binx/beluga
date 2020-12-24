@@ -29,28 +29,27 @@ const Grid = styled.div `
 `;
 
 function Product(props) {
-  const isValidVariant = props.product.variants && props.product.variants.name.length && props.product.variants.options.length;
+  const { product, config } = props;
+  const isValidVariant = product.details && product.details.name.length && product.details.options.length;
 
-  const initialVariants = isValidVariant ? [props.product.variants] : [];
+  const initialVariants = isValidVariant ? [product.details] : [];
   const [quantity, setQuantity] = useState(1);
   const [variants, setVariants] = useState(initialVariants);
   const [sku_id, setSkuID] = useState();
   const [inventory, setInventory] = useState();
   const [price, setPrice] = useState();
 
-  const { product, config } = props;
-
   useEffect(() => {
-    if (!props.product.stripe_id) return;
+    if (!product.stripe_id) return;
 
-    fetch(`/product-info/${props.product.stripe_id}`)
+    fetch(`/product-info/${product.stripe_id}`)
       .then(res => res.json())
-      .then(product => {
-        if (product.data && product.data.length > 1) {
-          const attr = Object.keys(product.data[0].attributes)[0]
+      .then(result => {
+        if (result.data && result.data.length >= 1) {
+          const attr = Object.keys(result.data[0].attributes)[0]
           const product_skus = {
             "name": attr,
-            "options": product.data.map(sku => ({
+            "options": result.data.map(sku => ({
               sku_id: sku.id,
               price: sku.price / 100,
               inventory: sku.inventory,
@@ -67,9 +66,9 @@ function Product(props) {
           setPrice(defaultChoice.price);
 
         } else {
-          setSkuID(product.data[0].id);
-          setInventory(product.data[0].inventory);
-          setPrice(product.data[0].price / 100);
+          setSkuID(result.data[0].id);
+          setInventory(result.data[0].inventory);
+          setPrice(result.data[0].price / 100);
         }
       }).catch(error => console.error('Error:', error));
 

@@ -23,7 +23,7 @@ import Confirm from './components/checkout/Confirm';
 import Config from "./routes/Config";
 
 import InitialConfig from "./components/config/InitialConfig";
-import Admin from './components/admin/Admin';
+import Orders from './components/admin/Orders';
 import Login from './components/admin/Login';
 
 import NotFound404 from "./components/NotFound404"
@@ -143,7 +143,7 @@ function App(props) {
                 } />
               )}
               {isAdmin && (
-                <Route exact path="/admin" component={Admin} />
+                <Route exact path="/orders" component={Orders} />
               )}
             
               <Route component={NotFound404} />

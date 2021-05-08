@@ -2,22 +2,23 @@ import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 
 import ProductAttribute from "./ProductAttribute";
-import ProductVariants from "./ProductVariants";
+import ProductDetails from "./ProductDetails";
 
 import { Button } from '@material-ui/core';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 const Note = styled.span `
   font-size: 12px;
   display: inline-block;
   vertical-align: bottom;
-  margin-bottom: 15px;
+  margin-top: 10px;
 `;
 
 function ProductStep2(props) {
   const { product, handleChange } = props;
 
   const [hasAttributes, setHasAttributes] = useState(!!product.attributes);
-  const [hasVariants, setHasVariants] = useState(!!product.variants);
+  const [hasDetails, setHasDetails] = useState(!!product.details);
   const [checkingAttributes, setCheckingAttributes] = useState(true);
   const [allowAttributes, setAllowAttributes] = useState(true)
   const [attributeOptions, setAttributeOptions] = useState([]);
@@ -40,10 +41,21 @@ function ProductStep2(props) {
           setAllowAttributes(false)
         }
       })
-  }, [])
+  }, []);
+
+  const removeDetails = () => {
+    handleChange("details", null);
+    setHasDetails(null);
+  }
 
   return (
     <div style={{ marginBottom: "40px"}}>
+      <h3>Product Variants</h3>
+      <p style={{ fontSize: "14px" }}>Use variants for products that have more than one option. Each variant will have its own <b>price</b> and (optional) <b>inventory</b>. For example:</p>
+      <ul style={{ fontSize: "14px", marginBottom: "20px" }}>
+        <li>Small, Medium, or Large T-shirt sizes</li>
+        <li>Gold or Silver finishes for a necklace</li>
+      </ul>
       { !checkingAttributes && allowAttributes && (hasAttributes ? (
         <div>
           <ProductAttribute
@@ -52,34 +64,43 @@ function ProductStep2(props) {
             attributeOptions={attributeOptions}
           />
           <Note>(You will set prices in Step 3.)</Note>
-
-          <div style={{ margin: "40px 0", borderTop: "1px solid #ccc" }} />
         </div>
       ) : (
-        <div style={{ marginTop: "20px", display: "flex", alignItems: "center" }}>
-          <Button style={{ marginRight: "20px" }}
-            component="label" variant="contained" color="secondary"
-            onClick={() => setHasAttributes(true)}
-          >
-            Add variants with<b style={{ marginLeft: "5px" }}>different prices</b>
-          </Button>
-          (for example, size or material options)
-
-          <div style={{ margin: "40px 0", borderTop: "1px solid #ccc" }} />
-        </div>
+        <Button
+          component="label" variant="contained" color="secondary"
+          onClick={() => setHasAttributes(true)}
+        >
+          Add variants
+        </Button>
       ))}
 
-      { hasVariants ? (
-        <ProductVariants product={product} handleChange={handleChange} />
-      ) : (
-        <div style={{ marginTop: "20px" }}>
+      <div style={{ margin: "40px 0", borderTop: "1px solid #ccc" }} />
+
+      <h3 style={{ display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+        Product Details
+        { hasDetails && (
           <Button
-            component="label" variant="contained" color="secondary"
-            onClick={() => setHasVariants(true)}
+            component="label" variant="outlined" color="primary" size="small"
+            onClick={removeDetails}
           >
-            Add variants with<b style={{ marginLeft: "5px" }}>the same price</b>
+            <DeleteOutlineIcon style={{ marginRight: "5px" }}/> Remove Details
           </Button>
-        </div>
+        )}
+      </h3>
+      <p style={{ fontSize: "14px" }}>Use options to set additional info about the product. These will apply to all variants of this product. For example:</p>
+      <ul style={{ fontSize: "14px", marginBottom: "20px" }}>
+        <li>Whether or not to gift-wrap the item</li>
+        <li>Which color theme to use in a design</li>
+      </ul>
+      { hasDetails ? (
+        <ProductDetails product={product} handleChange={handleChange} />
+      ) : (
+        <Button
+          component="label" variant="contained" color="secondary"
+          onClick={() => setHasDetails(true)}
+        >
+          Add Details
+        </Button>
       )}
 
     </div>

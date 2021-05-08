@@ -45,7 +45,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "server": "nodemon server/index.js"
+    "server": "nodemon --watch server server/index.js"
   },
   "proxy": "http://localhost:5000",
   "browserslist": {

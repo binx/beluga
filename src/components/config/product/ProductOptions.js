@@ -23,8 +23,8 @@ function ProductOptions(props) {
           </div>
         ) : (
           <TextField
-            label="Variant Type (i.e. Size)"
-            style={{ width: "250px" }}
+            label="Option Name (i.e. Size, Color)"
+            style={{ width: "350px" }}
             value={variant.name}
             onChange={(e) => handleNameChange(e.target.value)}
             margin="normal"
@@ -53,11 +53,12 @@ function ProductOptions(props) {
       </div>
       <Step disabled={onSave && inEditMode}>
         <TextField
-          label="Options (i.e. Medium)"
+          label="Option Value (i.e. Medium, Blue)"
           value={variantOptionText}
           onChange={(e) => setVariantOptionText(e.target.value)}
           margin="normal"
-          style={{ width: "250px" }}
+          size="small"
+          style={{ width: "350px" }}
         />
         <Button
           onClick={() => {

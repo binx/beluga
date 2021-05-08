@@ -28,7 +28,7 @@ const LargeIMG = styled.div `
   padding-bottom: 133%;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: 50% 0;
+  background-position: 50%;
   display: inline-block;
 `;
 

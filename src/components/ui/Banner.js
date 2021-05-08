@@ -46,7 +46,7 @@ function Banner({ classes, quantity, config, width }) {
 
   if (isAdmin) {
     links.push({ url: "/config", label: "Config" })
-    links.push({ url: "/admin", label: "Orders" })
+    links.push({ url: "/orders", label: "Orders" })
   }
 
   const renderLinks = (link, i) => (

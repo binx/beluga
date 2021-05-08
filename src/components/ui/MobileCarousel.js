@@ -22,7 +22,7 @@ const LargeIMG = styled.div `
   width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: 50% 0;
+  background-position: 50%;
   display: inline-block;
   grid-column: span 3;
   margin: auto;

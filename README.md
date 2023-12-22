@@ -1,3 +1,11 @@
+# ⚠️ sadly, this project is depricated
+
+This repo relies on Stripe's data model to contain both a "product" and "order" object, both of which have been deprecated in favor of "price."
+
+It would require a substantial rewrite to get this project running again — contributions are welcome, but unfortunately I don't see myself having time to do it in the near future.
+
+<3, Rachel
+
 # 🎷🐋 Beluga
 
 ### Build your own ecommerce site!
